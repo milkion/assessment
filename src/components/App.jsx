@@ -1,5 +1,13 @@
+import Posts from './Posts';
+
 function App() {
-  return <div>{/* Complete the exercise here. */}</div>;
+
+
+  return (
+    <div>
+      <Posts />
+    </div>
+  );
 }
 
 export default App;
