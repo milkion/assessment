@@ -1,15 +1,11 @@
 import { useState, useEffect } from 'react';
 import { MultiSelect } from "react-multi-select-component";
 
-function CategoryFilter() {
+function CategoryFilter({onCategoryChange}) {
 
     const [categories, setCategories] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
 
-
-    const handleCategoryChange = (event) => {
-        setSelectedCategories(event.target.value);
-    }
 
     useEffect(() => {
         fetch('/api/posts')
@@ -30,12 +26,16 @@ function CategoryFilter() {
             .catch(error => console.error('Error fetching data:(', error));
     }, []);
 
-
+    const handleCategoryChange = (selected) => {
+        setSelectedCategories(selected);
+        onCategoryChange(selected);
+        console.log(selected);
+    }
 
     return (
         <div>
             <p>Filter by category:</p>
-            <MultiSelect options = {categories} value={selectedCategories} onChange = {setSelectedCategories} />
+            <MultiSelect options = {categories} value={selectedCategories} onChange = {handleCategoryChange} />
         </div>
     );
 }

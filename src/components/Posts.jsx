@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function Posts() {
+function Posts({selectedCategories}) {
     const [posts, setPosts] = useState(null);
     const APIKey = '/api/posts';
 
@@ -14,6 +14,14 @@ function Posts() {
     if (!posts) {
         return <div>Empty post</div>;
     }
+
+    const filteredPosts = posts.filter((post) =>
+        selectedCategories.length === 0 ||
+        selectedCategories.every((selectedCategory) =>
+          post.categories.some((category) => category.name === selectedCategory.value)
+        )
+      );
+
 
     return (
         <div className="posts table">
@@ -31,7 +39,7 @@ function Posts() {
                 </thead>
 
                 <tbody>
-                    {posts.map(post => (
+                    {filteredPosts.map(post => (
                         <tr>
                             <td>{post.id}</td>
                             <td>{post.title}</td>
