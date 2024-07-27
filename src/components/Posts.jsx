@@ -37,10 +37,10 @@ function Posts({ selectedCategories }) {
   }, [posts, selectedCategories]);
 
   // Uses Pagination hook to manage page-related state and data by destructuring the returned object
-  const { currentPage, setCurrentPage, currentData: postsDisplayed, numOfPages } = Pagination(filteredPosts, postsPerPage);
+  const { setCurrentPage, currentData: postsDisplayed, numOfPages } = Pagination(filteredPosts, postsPerPage);
 
   return (
-    <div className="posts-table">
+    <main className="posts-table">
       <table>
         <thead>
           <tr>
@@ -79,7 +79,7 @@ function Posts({ selectedCategories }) {
           <button key={idx} onClick={() => setCurrentPage(curPage)}>{curPage}</button>
         ))}
       </footer>
-    </div>
+    </main>
   );
 }
 
