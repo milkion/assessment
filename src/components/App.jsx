@@ -4,7 +4,7 @@ import Details from './Details';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 
 /**
- * The App component is the main component that renders everything.
+ * The App component is in charge of rendering the routes.
  * @returns {JSX.Element} The App component.
  */
 function App() {

@@ -36,15 +36,21 @@ function Posts({ selectedCategories }) {
     };
   }, [posts, selectedCategories]);
 
+
+
   // Uses Pagination hook to manage page-related state and data by destructuring the returned object
   const { setCurrentPage, currentData: postsDisplayed, numOfPages } = Pagination(filteredPosts, postsPerPage);
 
+  if (!posts){
+    return <div className='flex justify-center'> Loading the good stuff ... </div>;
+  }
+
   return (
-    <main className="posts-table">
-      <table>
+    <main>
+      <table className='table-fixed border-collapse border border-gray-900'>
         <thead>
-          <tr>
-            <th>Post ID</th>
+          <tr className='border-b border-gray-900 bg-gray-800 text-gray-100'>
+            <th className='py-2'>Post ID</th>
             <th>Title</th>
             <th>Published Date</th>
             <th>Author</th>
@@ -55,15 +61,15 @@ function Posts({ selectedCategories }) {
         </thead>
         <tbody>
           {postsDisplayed.map((post) => (
-            <tr key={post.id}>
-              <td>{post.id}</td>
-              <td>{post.title}</td>
-              <td>{new Date(post.publishDate).toLocaleString()}</td>
-              <td>{post.author.name}</td>
-              <td><img src={post.author.avatar} alt={post.author.name} /></td>
-              <td>{post.summary}</td>
-              <td>
-                <ul>
+            <tr key={post.id} className="border-b border-gray-900">
+              <td className='px-4'>{post.id}</td>
+              <td className='px-4'>{post.title}</td>
+              <td className='px-4'>{new Date(post.publishDate).toLocaleString()}</td>
+              <td className='px-4'>{post.author.name}</td>
+              <td className='px-4 hover:scale-150 transition-transform duration-300'><img src={post.author.avatar} alt={post.author.name} /></td>
+              <td className='px-4'>{post.summary}</td>
+              <td className='px-4'>
+                <ul className='list-outside list-disc py-2'>
                   {post.categories.map(category => (
                     <li key={category.id}>{category.name}</li>
                   ))}
@@ -73,11 +79,14 @@ function Posts({ selectedCategories }) {
           ))}
         </tbody>
       </table>
-      <footer>
-        {/* Displaying the pagination buttons */}
-        {numOfPages.map((curPage, idx) => (
-          <button key={idx} onClick={() => setCurrentPage(curPage)}>{curPage}</button>
-        ))}
+      <footer className='flex justify-center items-center py-4'>
+        <div className='flex space-x-4'>
+          {/* Displaying the pagination buttons */}
+          {numOfPages.map((curPage, idx) => (
+            <button className='text-gray-900 font-bold p-1 hover:scale-125 transition-transform duration-300' key={idx} onClick={() => setCurrentPage(curPage)}>{curPage}</button>
+          ))}
+        </div>
+
       </footer>
     </main>
   );
